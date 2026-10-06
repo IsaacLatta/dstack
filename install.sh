@@ -90,6 +90,15 @@ case "$HARNESS" in
       echo "  harnesses/claude-code/commands/$(basename "$f") -> .claude/commands/$(basename "$f")"
     done
     ;;
+  codex)
+    mkdir -p "$TARGET/.agents/skills"
+    for skill in "$HARNESS_DIR"/skills/*/; do
+      name="$(basename "$skill")"
+      rm -rf "$TARGET/.agents/skills/$name"
+      cp -R "$skill" "$TARGET/.agents/skills/$name"
+      echo "  harnesses/codex/skills/$name -> .agents/skills/$name"
+    done
+    ;;
   *)
     echo "Harness '$HARNESS' has no install logic wired up in install.sh yet." >&2
     exit 1
